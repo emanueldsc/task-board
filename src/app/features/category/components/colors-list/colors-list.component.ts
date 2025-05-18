@@ -18,6 +18,8 @@ import { CategoryService } from '../../service/category.service';
         </span>
       
       }
+
+      <span></span>
       
       </div>
     </section>
