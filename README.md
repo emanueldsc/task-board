@@ -23,8 +23,6 @@ O projeto foi desenvolvido com as seguintes tecnologias:
 
 ## 🚀 Instalação
 
-Segue projeto no github pronto para usar de template e desenvolver o seu próprio: https://github.com/lucasspeixoto/my-task-board-template
-
 ```bash
 # Clone o repositório
 $ git clone https://github.com/lucasspeixoto/my-task-board-template
@@ -39,7 +37,3 @@ $ npm install
 $ npm start
 
 ```
-
-## 📝 Licença
-
-Este projeto está licenciado sob a Licença MIT. Veja o arquivo [LICENSE](https://opensource.org/licenses/MIT) para obter mais detalhes.
