@@ -8,7 +8,7 @@ import { Task } from "../model/task.model";
     providedIn: 'root'
 })
 export class TaskService {
-    
+
     private readonly _httpClient = inject(HttpClient);
 
     public tasks = signal<Task[]>([]);
@@ -25,7 +25,9 @@ export class TaskService {
     }
 
     public createTask(task: Partial<Task>): Observable<Task> {
-        return this._httpClient.post<Task>(`${this._apiUrl}/tasks`, task)
+        return this._httpClient.post<Task>(`${this._apiUrl}/tasks`, task).pipe(
+            tap(tasks => this.insertATaskInTheTasksLists(tasks))
+        );
     }
 
     public insertATaskInTheTasksLists(newTask: Task): void {
@@ -39,10 +41,11 @@ export class TaskService {
     }
 
     public updateTask(task: Task): Observable<Task> {
-        return this._httpClient.put<Task>(`${this._apiUrl}/tasks/${task.id}`, task)
+        return this._httpClient
+            .put<Task>(`${this._apiUrl}/tasks/${task.id}`, task)
+            .pipe(tap(task => this.updateATaskInTheTasksList(task)));
     }
 
-    // 
     public updateATaskInTheTasksList(task: Task): void {
         this.tasks.update(tasks => {
             const allTasksWithUpdatedTaskRemoved = tasks.filter(ItemOldList => ItemOldList.id !== task.id);
@@ -52,11 +55,15 @@ export class TaskService {
     }
 
     public updateIsCompletedStatus(taskIs: string, isCompleted: boolean): Observable<Task> {
-        return this._httpClient.patch<Task>(`${this._apiUrl}/tasks/${taskIs}`, { isCompleted })
+        return this._httpClient
+            .patch<Task>(`${this._apiUrl}/tasks/${taskIs}`, { isCompleted })
+            .pipe(tap(task => this.updateATaskInTheTasksList(task)));
     }
 
     public deleteTask(taskId: string): Observable<Task> {
-        return this._httpClient.delete<Task>(`${this._apiUrl}/tasks/${taskId}`)
+        return this._httpClient
+            .delete<Task>(`${this._apiUrl}/tasks/${taskId}`)
+            .pipe(tap(() => this.deleteATaskInTheTasksList(taskId)));
     }
 
     public deleteATaskInTheTasksList(taskId: string): void {
@@ -65,6 +72,5 @@ export class TaskService {
             return this.getSortedTasks(updatedTasks);
         })
     }
-
 
 }

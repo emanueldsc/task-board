@@ -7,6 +7,10 @@
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "types": ["jest", "node"],
+    "paths": {
+      "src/*": ["src/*"],
+      "@/*": ["src/app/*"],
+    },
     "strict": true,
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,

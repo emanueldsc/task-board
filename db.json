@@ -1,5 +1,12 @@
 {
-  "tasks": [],
+  "tasks": [
+    {
+      "id": "1",
+      "title": "Ir na academia 2",
+      "isCompleted": false,
+      "categoryId": "5"
+    }
+  ],
   "categories": [
     {
       "id": "1",
